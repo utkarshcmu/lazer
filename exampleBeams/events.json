@@ -1,0 +1,35 @@
+{
+	"beam.settings": {
+		"name": "KafkaLogCountExample",
+		"duration": 10
+	},
+	"spark.settings": {
+		"spark.streaming.backpressure.enabled": true,
+		"spark.executor.memory": "4g"
+	},
+	"input.settings": [
+		{
+			"class": "io.github.utkarshcmu.input.KafkaInputBeam",
+			"config": {				
+				"topics": [
+					"topicA",
+					"topicB"
+				],
+				"params": {
+					"metadata.broker.list": "kafka:9092",
+					"group.id": "consumerGroupName",
+					"auto.offset.reset": "lastest"
+				}
+			}
+		}
+	],
+	"output.settings": [
+		{
+			"class": "io.github.utkarshcmu.output.SocketOutputBeam",
+			"config": {
+				"host": "graphite",
+				"port": 2003
+			}
+		}
+	]
+}
